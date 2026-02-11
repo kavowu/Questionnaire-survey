@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WETOP 異味檢測與節能說明頁</title>
+  <!-- Favicon -->
+  <link rel="icon" href="image/WETOPLOGO去背.png" type="image/png">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #0ea5e9;
+      /* Sky 500 */
+      --secondary-color: #ef4444;
+      /* Red 500 - for heat/danger */
+      --accent-color: #10b981;
+      /* Emerald 500 - for clean/success */
+      --text-dark: #1e293b;
+      /* Slate 800 */
+      --text-light: #f8fafc;
+      /* Slate 50 */
+      --bg-light: #ffffff;
+      --bg-off-white: #f8fafc;
+      --font-main: 'Inter', 'Noto Sans TC', sans-serif;
+      --transition-speed: 0.3s;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--text-dark);
+      line-height: 1.6;
+      background-color: var(--bg-light);
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    /* Utility Classes */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition-speed) ease;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+      color: white;
+      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(14, 165, 233, 0.6);
+    }
+
+    /* Logo Overlay */
+    .brand-logo {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      z-index: 100;
+      width: 150px;
+      height: auto;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    @media (max-width: 768px) {
+      .brand-logo {
+        /* Mobile: Center logo at the top and put it back in flow */
+        position: relative;
+        top: auto;
+        left: auto;
+        margin: 0 auto 2rem auto;
+        width: 140px;
+        display: block;
+      }
+    }
+
+    .section-padding {
+      padding: 80px 0;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 90vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #0f172a;
+      color: white;
+    }
+
+    /* Simulating the split hero background with CSS */
+    .hero-image-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background-color: #0f172a;
+      /* 
+         加強對比方案：
+         使用更飽和的色彩與明顯的區域劃分，確保「左紅右藍」視覺衝擊力
+      */
+      background-image: 
+        /* 左側：悶熱/污染 (飽和紅) */
+        radial-gradient(circle at 5% 50%, rgba(220, 38, 38, 0.5) 0%, rgba(220, 38, 38, 0.1) 40%, transparent 60%),
+        /* 右側：潔淨/舒適 (飽和藍) */
+        radial-gradient(circle at 95% 50%, rgba(14, 165, 233, 0.5) 0%, rgba(14, 165, 233, 0.1) 40%, transparent 60%),
+        /* 底部襯托：深色漸層過渡 */
+        linear-gradient(90deg, #1f0505 0%, #0f172a 50%, #061826 100%);
+      background-size: cover;
+      background-position: center;
+      opacity: 1;
+    }
+
+    /* Update overlay to be cleaner */
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      /* 僅在上下邊緣加深，保留左右兩側的光影色彩 */
+      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8) 0%, transparent 20%, transparent 80%, rgba(15, 23, 42, 0.8) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 20px;
+      animation: fadeIn Up 1s ease-out;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-title span {
+      color: var(--primary-color);
+      background: linear-gradient(to right, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    /* Part 1: The Problem */
+    .problem-section {
+      background-color: var(--bg-off-white);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--text-dark);
+    }
+
+    /* Updated Feature Row Layout */
+    .feature-container {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .feature-row {
+      display: flex;
+      align-items: center; /* Center vertically */
+      gap: 3rem;
+      background: white;
+      padding: 0; 
+      border-radius: 20px;
+      overflow: hidden; /* For image roundness */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: transform var(--transition-speed);
+    }
+
+    .feature-row:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Alternating layout for desktop */
+    .feature-row:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .feature-image-wrapper {
+      flex: 1;
+      min-width: 300px;
+      height: 100%; 
+      display: flex;
+    }
+
+    .feature-image {
+      width: 100%;
+      height: auto;
+      object-fit: contain; /* Ensure full image is seen */
+      display: block;
+    }
+
+    .feature-content {
+      flex: 1;
+      padding: 2.5rem;
+      min-width: 300px;
+    }
+
+    .feature-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .feature-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--secondary-color);
+      border-radius: 2px;
+    }
+
+    /* Responsive adjustment */
+    @media (max-width: 900px) {
+      .feature-row, .feature-row:nth-child(even) {
+        flex-direction: column;
+        text-align: left;
+      }
+      
+      .feature-image-wrapper {
+        width: 100%;
+      }
+    }
+
+    /* Part 2: Solution */
+    .solution-section {
+      background: linear-gradient(to right, #f0f9ff, #e0f2fe);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tech-diagram {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
+    .tech-text {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .tech-visual {
+      flex: 1;
+      min-width: 300px;
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(14, 165, 233, 0.15);
+      text-align: center;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-top: 1.5rem;
+    }
+
+    .feature-list li {
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+      position: relative;
+      font-weight: 500;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent-color);
+      font-weight: 800;
+    }
+
+    /* Part 3: Evidence */
+    .evidence-section {
+      background-color: white;
+    }
+
+    .stats-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 2rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .stat-number {
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--accent-color);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      color: #64748b;
+    }
+
+    /* Part 4: Interaction */
+    .interaction-section {
+      background: #1e293b;
+      color: white;
+      text-align: center;
+    }
+
+    .interaction-section .section-title {
+      color: white;
+    }
+
+    .counter-wrapper {
+      background: rgba(255, 255, 255, 0.1);
+      display: inline-block;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .counter-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #38bdf8;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .iframe-container {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      padding-top: 56.25%;
+      /* 16:9 Aspect Ratio placeholder */
+    }
+
+    .iframe-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #cbd5e1;
+      color: #475569;
+      flex-direction: column;
+    }
+
+    /* Footer */
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 4rem 0 2rem;
+      border-top: 1px solid #1e293b;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .cert-logos {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .cert-badge {
+      background: #334155;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .copyright {
+      text-align: center;
+      font-size: 0.9rem;
+      padding-top: 2rem;
+      border-top: 1px solid #1e293b;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 60px 0;
+        flex-direction: column; /* Stack logo and content */
+        justify-content: center;
+      }
+
+      .section-padding {
+        padding: 50px 0;
+      }
+
+      .feature-content {
+        padding: 1.5rem;
+      }
+
+      .feature-title {
+        font-size: 1.5rem;
+      }
+
+      /* Adjust form tabs for mobile */
+      .form-tabs .btn.form-tab {
+        flex: 1 1 100% !important; /* Stack buttons on mobile */
+        min-width: auto !important;
+        margin-bottom: 5px;
+      }
+      
+      .form-tabs {
+        flex-direction: column;
+      }
+
+      /* Adjust iframe container */
+      .iframe-container {
+        height: 600px !important; /* Slightly shorter on mobile to avoid endless scrolling */
+      }
+      
+      .stat-number {
+        font-size: 3rem;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Back to Top Button */
+    #backToTop {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 999;
+      border: none;
+      outline: none;
+      background-color: var(--primary-color);
+      color: white;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 50%;
+      font-size: 18px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    #backToTop:hover {
+      background-color: #0284c7;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <img src="image/WETOPLOGO去背.png" alt="WETOP Logo" class="brand-logo">
+    <div class="hero-image-container"></div>
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <h1 class="hero-title">官能測試問卷系統：<br><span>將「感覺」數據化的驗收利器</span></h1>
+      <p class="hero-subtitle">別讓冷氣麻痺你的求生本能——用潔淨空氣換取 30% 的節能效益。</p>
+      <a href="#interaction" class="btn btn-primary">立即檢測您的空氣品質</a>
+    </div>
+  </header>
+
+  <!-- Part 1: The Problem -->
+  <section class="section-padding problem-section">
+    <div class="container">
+      <h2 class="section-title reveal">打破迷思：為什麼我們會感到悶熱？</h2>
+      <div class="feature-container">
+        <!-- Item 1 -->
+        <div class="feature-row reveal">
+          <div class="feature-image-wrapper">
+            <img src="image/異味的神經機制.jpg" alt="異味的神經機制 - 大腦解剖圖解" class="feature-image" loading="lazy">
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-title">異味的神經機制</h3>
+            <p>嗅覺是唯一不經過丘腦（大腦守門人），直接進入大腦邊緣系統（情緒與記憶中樞）的感官。</p>
+            <br>
+            <p>這意味著，<strong>異味會「繞過理智」，瞬間引發深層的焦慮與不適</strong>，並立即啟動身體的防禦機制。</p>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="feature-row reveal">
+          <div class="feature-image-wrapper">
+            <img src="image/化學痛覺刺激.jpg" alt="化學痛覺刺激說明" class="feature-image" loading="lazy">
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-title">化學痛覺刺激</h3>
+            <p>空氣中的 VOCs（揮發性有機化合物）不僅是異味，更是化學刺激物。</p>
+            <br>
+            <p>它們會<strong>刺激三叉神經</strong>，導致交感神經亢奮、心跳加快，引發「生理性熱負荷」。這解釋了為什麼空氣髒的時候，<strong>即使在冷氣房也會覺得悶熱</strong>。</p>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="feature-row reveal">
+          <div class="feature-image-wrapper">
+            <img src="image/低溫掩蓋的真相.jpg" alt="低溫只是掩蓋" class="feature-image" loading="lazy">
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-title">低溫掩蓋的真相</h3>
+            <p>人們常誤以為開強冷氣就能消除異味，其實這只是關閉了身體的「危險警報器」。</p>
+            <br>
+            <p><strong>低溫並無法去除污染分子</strong>，它只是麻痺了您的嗅覺感官，讓您處於「吸入汙染卻不自知」的風險中。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Part 2: The Solution -->
+  <section class="section-padding solution-section">
+    <div class="container">
+      <h2 class="section-title reveal">WETOP 技術：從源頭解決問題</h2>
+      
+      <div class="feature-container">
+        <!-- Item 1: PICT Technology -->
+        <div class="feature-row reveal">
+          <div class="feature-image-wrapper">
+            <img src="image/技術原理.jpg" alt="PICT 主動分解技術" class="feature-image" loading="lazy">
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-title">PICT 主動分解技術</h3>
+            <p><strong>從被動過濾，跨越到主動分解。</strong></p>
+            <br>
+            <p>採用 <strong>PICT 仿生態光離子催化技術</strong>，模擬自然界的大氣自潔機制。透過光與催化作用產生淨化因子，能<strong>主動打斷 TVOCs 與 NOx 的化學鍵</strong>。</p>
+            <br>
+            <p>不同於傳統濾網僅能被動攔截顆粒，PICT 能從源頭直接破壞氣態污染分子，將其還原為無害物質，真正實現空氣淨化。</p>
+          </div>
+        </div>
+
+        <!-- Item 2: Physiological Cooling -->
+        <div class="feature-row reveal">
+          <div class="feature-image-wrapper">
+            <img src="image/降溫機制.jpg" alt="生理降溫機制" class="feature-image" loading="lazy">
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-title">生理降溫機制</h3>
+            <p><strong>啟動副交感神經</strong>：潔淨空氣能激活迷走神經，使呼吸變深、心率下降，身體基礎代謝降低。</p>
+            <br>
+            <p><strong>結果</strong>：對環境溫度的耐受範圍自然擴大，原本覺得熱的 26℃ 會變得舒適宜人。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Part 3: Evidence -->
+  <section class="section-padding evidence-section">
+    <div class="container">
+      <h2 class="section-title reveal">節能依據：以空氣品質換取能源</h2>
+      
+      <div class="feature-container">
+        <!-- Item 1: Fanger's Law -->
+        <div class="feature-row reveal">
+          <div class="feature-image-wrapper">
+            <img src="image/研究來源.jpg" alt="P.O. Fanger 研究 - 空氣品質與體感溫度" class="feature-image" loading="lazy">
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-title">Fanger 定律</h3>
+            <p>根據丹麥技術大學 <strong>P.O. Fanger 教授</strong> 的研究指出，感知空氣品質（PAQ）與體感舒爽度有著密切的「等效關係」。</p>
+            <br>
+            <p>研究證實：<strong>改善感知空氣品質所帶來的舒爽感，等效於將室內氣溫降低約 3℃ 的效果。</strong></p>
+          </div>
+        </div>
+
+        <!-- Item 2: Quantified Energy Savings -->
+        <div class="feature-row reveal">
+          <div class="feature-image-wrapper">
+            <img src="image/節能依據.jpg" alt="量化節能數據圖表" class="feature-image" loading="lazy">
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-title">量化節能數據</h3>
+            <p><strong>空調每調高 1℃，可節省約 6% 至 10% 的能耗。</strong></p>
+            <br>
+            <p>透過 WETOP 技術優化空氣品質，讓您在 <strong>26℃ 的環境中也能感受到如同 23℃ 的舒爽</strong>。</p>
+            <br>
+            <p>這意味著您可以在維持舒適度的前提下調高冷氣溫度，實現空調系統 <strong>潛在節能近 30%</strong> 的驚人效益。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Part 4: Interaction (Counter & Form) -->
+  <section id="interaction" class="section-padding interaction-section">
+    <div class="container">
+      
+      <!-- Section Title Image -->
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <img src="image/驗收標題.jpg" alt="您的空間空氣品質合格嗎？立即參與檢測" style="max-width: 100%; height: auto; border-radius: 4px;">
+      </div>
+
+      <!-- Description & Chart -->
+      <div style="max-width: 800px; margin: 0 auto 3rem;">
+        <p style="margin-bottom: 2rem; opacity: 0.9; font-size: 1.2rem; line-height: 1.8;">
+          異味驗收不再是主觀爭辯，而是透過標準化問卷轉化為客觀數據。<br>
+          <span style="color: #38bdf8; font-weight: bold;">每下降一分，代表 90% 污染被消除。</span>
+        </p>
+        
+        <img src="image/強度關聯.jpg" alt="強度關聯圖" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-top: 1rem;">
+      </div>
+
+      <div class="counter-wrapper">
+        <p style="margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">檢測參與人數
+        </p>
+        <div id="participant-counter" class="counter-number">...</div>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.7;">加入我們，改善您的呼吸環境</p>
+      </div>
+
+      <!-- Form Tabs -->
+      <div style="max-width: 800px; margin: 0 auto 1.5rem;">
+        <div class="form-tabs" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <button class="btn btn-primary form-tab" onclick="switchForm(1)" id="tab-1"
+            style="flex: 1; min-width: 140px; border-radius: 8px;">1. 發現問題</button>
+          <button class="btn form-tab" onclick="switchForm(2)" id="tab-2"
+            style="flex: 1; min-width: 140px; background: #e2e8f0; color: #475569; border-radius: 8px;">2. 檢測前測</button>
+          <button class="btn form-tab" onclick="switchForm(3)" id="tab-3"
+            style="flex: 1; min-width: 140px; background: #e2e8f0; color: #475569; border-radius: 8px;">3. 驗收後測</button>
+        </div>
+      </div>
+
+      <div class="iframe-container" style="padding-top: 0; height: 800px;">
+        <iframe id="form-iframe"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSeUOKrDZPysrz543m1zdmsoLydKCPFwI_wGl-PbnBAhUFm8YA/viewform?embedded=true"
+          width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0"
+          style="border: none; border-radius: 12px; background: #f8fafc;">載入中...</iframe>
+      </div>
+
+      <script>
+        function switchForm(step) {
+          const iframe = document.getElementById('form-iframe');
+          const tabs = [document.getElementById('tab-1'), document.getElementById('tab-2'), document.getElementById('tab-3')];
+
+          const urls = [
+            "https://docs.google.com/forms/d/e/1FAIpQLSeUOKrDZPysrz543m1zdmsoLydKCPFwI_wGl-PbnBAhUFm8YA/viewform?embedded=true",
+            "https://docs.google.com/forms/d/e/1FAIpQLSchF5R50LGe8OaUskYO9d1pshThI8uLePhYK-8uI4JzjLrpdA/viewform?embedded=true",
+            "https://docs.google.com/forms/d/e/1FAIpQLSdSCWg62JyQBCmnVvMxfFWXSjPra3nwkdIeZEBEjB811tKMWg/viewform?embedded=true"
+          ];
+
+          // Update Tabs
+          tabs.forEach((t, index) => {
+            if (index + 1 === step) {
+              t.style.background = 'linear-gradient(135deg, var(--primary-color), #3b82f6)';
+              t.style.color = 'white';
+              t.style.boxShadow = '0 4px 14px rgba(14, 165, 233, 0.4)';
+            } else {
+              t.style.background = '#e2e8f0';
+              t.style.color = '#475569';
+              t.style.boxShadow = 'none';
+            }
+          });
+
+          // Update Iframe
+          iframe.src = urls[step - 1];
+        }
+      </script>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+        <div>
+          <h3 style="color: white; margin-bottom: 1rem;">WETOP</h3>
+          <p>專業空氣品質診斷與改善</p>
+        </div>
+        <div>
+          <h4 style="color: white; margin-bottom: 1rem;">相關連結</h4>
+          <div class="cert-logos" style="flex-direction: column; align-items: flex-start;">
+            <a href="https://www.wetoptec.com.tw/" target="_blank" class="cert-badge" style="text-decoration: none; margin-bottom: 10px; display: inline-block; text-align: center; width: 120px;">WETOP 官網</a>
+            <a href="https://www.pict-inside.com/" target="_blank" class="cert-badge" style="text-decoration: none; display: inline-block; text-align: center; width: 120px;">PICT 官網</a>
+          </div>
+        </div>
+        <div style="grid-column: span 2;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap;">
+            <div>
+              <h4 style="color: white; margin-bottom: 1rem;">聯絡我們</h4>
+              <div style="font-size: 0.9rem; line-height: 1.8;">
+                <p><strong>WETOP 客服中心</strong></p>
+                <p>地址：台灣新竹縣竹北市文興路一段360號</p>
+                <p>Email：<a href="mailto:kavowu@wetoptec.com.tw" style="color: #94a3b8; text-decoration: none;">kavowu@wetoptec.com.tw</a></p>
+                <p>電話：03-6685878</p>
+                <p>營業時間：週一至週五 10:00 - 18:00</p>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; margin-top: -1.5rem;">
+              <h4 style="visibility: hidden; margin-bottom: 0;">LINE</h4> <!-- Spacer -->
+              <img src="image/lineqrcode.png" alt="LINE QR Code" style="width: 120px; height: auto; border-radius: 8px;">
+              <p style="margin-top: 0.5rem; color: #38bdf8; font-size: 0.85rem; text-align: center;">透過 LINE 官方帳號<br>@WETOP 與我們聯繫</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2024 WETOP. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Participant Counter Logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const counterElement = document.getElementById('participant-counter');
+      const DATA_URL = 'https://script.google.com/macros/s/AKfycbxWaMeDpqFg0xqMYJ7JQMbcXMoWKfa5_Fe7gW_niKYmnAFDXTay70qw9tzugv0foB9qUA/exec';
+
+      // Function to format number with commas
+      const formatNumber = (num) => {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      };
+
+      // Function to fetch real count
+      const fetchCount = async () => {
+        try {
+          // Google Apps Script redirects, so we usually just fetch.
+          // Note: Simple GET request
+          const response = await fetch(DATA_URL);
+          const data = await response.json();
+          
+          if (data && data.count !== undefined) {
+             // 加上初始值 22
+             const count = data.count + 22;
+             const newText = formatNumber(count);
+             
+             // Update if changed (or initial load)
+             if (counterElement.textContent !== newText) {
+                counterElement.textContent = newText;
+                
+                // Simple animation
+                counterElement.style.transform = 'scale(1.1)';
+                counterElement.style.color = '#fff';
+                setTimeout(() => {
+                  counterElement.style.transform = 'scale(1)';
+                  counterElement.style.color = '#38bdf8';
+                }, 200);
+             }
+          }
+        } catch (error) {
+          console.error('Error fetching count:', error);
+        }
+      };
+
+      // Initial fetch
+      fetchCount();
+
+      // Refresh every 30 seconds to update count
+      setInterval(fetchCount, 30000);
+    });
+
+    // Scroll Animations & Back to Top Logic
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Reveal Elements on Scroll
+      const reveals = document.querySelectorAll('.reveal');
+
+      const revealOnScroll = () => {
+        const windowHeight = window.innerHeight;
+        const elementVisible = 150;
+
+        reveals.forEach((reveal) => {
+          const elementTop = reveal.getBoundingClientRect().top;
+          if (elementTop < windowHeight - elementVisible) {
+            reveal.classList.add('active');
+          }
+        });
+      };
+
+      window.addEventListener('scroll', revealOnScroll);
+      // Trigger once on load
+      revealOnScroll();
+
+      // 2. Back to Top Button
+      const backToTopButton = document.getElementById("backToTop");
+      
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          backToTopButton.style.display = "block";
+        } else {
+          backToTopButton.style.display = "none";
+        }
+      });
+
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+  
+  <!-- Back to Top Button HTML -->
+  <button id="backToTop" title="回到頂部">↑</button>
+</body>
+
+</html>
