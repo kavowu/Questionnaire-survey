@@ -544,19 +544,29 @@
       z-index: 999;
       border: none;
       outline: none;
-      background-color: var(--primary-color);
+      background: linear-gradient(135deg, var(--primary-color), #3b82f6);
       color: white;
       cursor: pointer;
-      padding: 15px;
+      width: 50px;
+      height: 50px;
+      padding: 0;
       border-radius: 50%;
-      font-size: 18px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: background-color 0.3s, transform 0.3s;
+      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+      transition: all 0.3s ease;
+      /* display: flex;  <-- Removed to let display: none take precedence */
+      align-items: center; /* Center icon */
+      justify-content: center; /* Center icon */
     }
 
     #backToTop:hover {
-      background-color: #0284c7;
-      transform: scale(1.1);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(14, 165, 233, 0.6);
+    }
+    
+    #backToTop svg {
+      width: 24px;
+      height: 24px;
+      stroke-width: 3;
     }
   </style>
 </head>
@@ -891,7 +901,7 @@
       
       window.addEventListener('scroll', () => {
         if (window.scrollY > 300) {
-          backToTopButton.style.display = "block";
+          backToTopButton.style.display = "flex";
         } else {
           backToTopButton.style.display = "none";
         }
@@ -907,7 +917,9 @@
   </script>
   
   <!-- Back to Top Button HTML -->
-  <button id="backToTop" title="回到頂部">↑</button>
+  <button id="backToTop" title="回到頂部">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
 </body>
 
 </html>
