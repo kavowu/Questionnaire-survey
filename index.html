@@ -913,6 +913,30 @@
           behavior: 'smooth'
         });
       });
+
+      // 3. Iframe Auto-Scroll on Submit/Tab Change
+      const formIframe = document.getElementById('form-iframe');
+      let iframeLoadCount = 0;
+
+      if (formIframe) {
+        formIframe.addEventListener('load', () => {
+          iframeLoadCount++;
+          // Skip the very first load (page initialization)
+          if (iframeLoadCount > 1) {
+            const formSection = document.getElementById('interaction');
+            if (formSection) {
+              const headerOffset = 80;
+              const elementPosition = formSection.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+              });
+            }
+          }
+        });
+      }
     });
   </script>
   
