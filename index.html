@@ -923,10 +923,11 @@
           iframeLoadCount++;
           // Skip the very first load (page initialization)
           if (iframeLoadCount > 1) {
-            const formSection = document.getElementById('interaction');
-            if (formSection) {
-              const headerOffset = 80;
-              const elementPosition = formSection.getBoundingClientRect().top;
+            // Target the counter wrapper to align with the user's screenshot view
+            const scrollTarget = document.querySelector('.counter-wrapper');
+            if (scrollTarget) {
+              const headerOffset = 60; // Adjusted offset for better visual alignment
+              const elementPosition = scrollTarget.getBoundingClientRect().top;
               const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       
               window.scrollTo({
