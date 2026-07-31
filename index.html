@@ -87,31 +87,99 @@
       box-shadow: 0 6px 20px rgba(14, 165, 233, 0.6);
     }
 
-    /* Logo Overlay */
+    /* Top Navigation */
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 120;
+      padding: 4px 0;
+      background: rgba(15, 23, 42, 0.18);
+      backdrop-filter: blur(10px);
+      box-shadow: none;
+      transition: background-color var(--transition-speed) ease, padding var(--transition-speed) ease;
+    }
+
+    .site-nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+        padding-left: 6px;
+        padding-right: 12px;
+    }
+
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      text-decoration: none;
+        margin-left: 0;
+    }
+
     .brand-logo {
-      position: absolute;
-      top: 30px;
-      left: 30px;
-      z-index: 100;
-      width: 110px;
+      width: 72px;
       height: auto;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     }
 
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      color: rgba(248, 250, 252, 0.92);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 9px;
+      border-radius: 999px;
+      transition: all var(--transition-speed) ease;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .nav-links a:hover {
+      color: white;
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.24);
+      transform: translateY(-1px);
+    }
+
     @media (max-width: 768px) {
+      .site-nav {
+        padding: 14px 0;
+      }
+
+      .site-nav .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
       .brand-logo {
-        /* Mobile: Center logo at the top and put it back in flow */
-        position: relative;
-        top: auto;
-        left: auto;
-        margin: 0 auto 2rem auto;
         width: 96px;
         display: block;
+      }
+
+      .nav-links a {
+        font-size: 0.88rem;
+        padding: 8px 12px;
       }
     }
 
     .section-padding {
       padding: 80px 0;
+      scroll-margin-top: 100px;
     }
 
     /* Hero Section */
@@ -169,7 +237,7 @@
       z-index: 2;
       text-align: center;
       max-width: 900px;
-      padding: 0 20px;
+      padding: 60px 20px 0;
       animation: fadeIn Up 1s ease-out;
     }
 
@@ -575,10 +643,22 @@
 
   <!-- Hero Section -->
   <header class="hero">
-    <img src="image/WETOPLOGO去背.png" alt="WETOP Logo" class="brand-logo">
+    <nav class="site-nav" aria-label="主要導覽">
+      <div class="container">
+        <a href="#top" class="nav-brand" aria-label="回到頁首">
+          <img src="image/WETOPLOGO去背.png" alt="WETOP Logo" class="brand-logo">
+        </a>
+        <div class="nav-links">
+          <a href="#problem">問題</a>
+          <a href="#solution">解決方案</a>
+          <a href="#evidence">節能依據</a>
+          <a href="#interaction">立即檢測</a>
+        </div>
+      </div>
+    </nav>
     <div class="hero-image-container"></div>
     <div class="hero-bg"></div>
-    <div class="container hero-content">
+    <div id="top" class="container hero-content">
       <h1 class="hero-title">官能測試問卷系統：<br><span>將「感覺」數據化的驗收利器</span></h1>
       <p class="hero-subtitle">別讓冷氣麻痺你的求生本能——用潔淨空氣換取 30% 的節能效益。</p>
       <a href="#interaction" class="btn btn-primary">立即檢測您的空氣品質</a>
@@ -586,7 +666,7 @@
   </header>
 
   <!-- Part 1: The Problem -->
-  <section class="section-padding problem-section">
+  <section id="problem" class="section-padding problem-section">
     <div class="container">
       <h2 class="section-title reveal">打破迷思：為什麼我們會感到悶熱？</h2>
       <div class="feature-container">
@@ -633,7 +713,7 @@
   </section>
 
   <!-- Part 2: The Solution -->
-  <section class="section-padding solution-section">
+  <section id="solution" class="section-padding solution-section">
     <div class="container">
       <h2 class="section-title reveal">WETOP 技術：從源頭解決問題</h2>
       
@@ -671,7 +751,7 @@
   </section>
 
   <!-- Part 3: Evidence -->
-  <section class="section-padding evidence-section">
+  <section id="evidence" class="section-padding evidence-section">
     <div class="container">
       <h2 class="section-title reveal">節能依據：以空氣品質換取能源</h2>
       
